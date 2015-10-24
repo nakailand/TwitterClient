@@ -13,9 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        let vc = UIStoryboard(name: "FollowerList", bundle: nil).instantiateInitialViewController()
+        self.window?.rootViewController = vc
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 

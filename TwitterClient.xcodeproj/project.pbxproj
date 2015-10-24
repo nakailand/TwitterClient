@@ -14,6 +14,10 @@
 		8403F56A1BDBCB9B0071B580 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8403F5681BDBCB9B0071B580 /* LaunchScreen.storyboard */; };
 		8403F5751BDBCB9B0071B580 /* TwitterClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F5741BDBCB9B0071B580 /* TwitterClientTests.swift */; };
 		8403F5801BDBCB9B0071B580 /* TwitterClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F57F1BDBCB9B0071B580 /* TwitterClientUITests.swift */; };
+		8403F58E1BDBCCF00071B580 /* FollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F58D1BDBCCF00071B580 /* FollowerListViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		8403F5921BDBCD2B0071B580 /* FollowerList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8403F5911BDBCD2B0071B580 /* FollowerList.storyboard */; settings = {ASSET_TAGS = (); }; };
+		8403F5941BDBDF090071B580 /* MesseageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F5931BDBDF090071B580 /* MesseageViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		8403F5961BDBDF160071B580 /* MessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8403F5951BDBDF160071B580 /* MessageViewController.storyboard */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,10 @@
 		8403F57B1BDBCB9B0071B580 /* TwitterClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwitterClientUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8403F57F1BDBCB9B0071B580 /* TwitterClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterClientUITests.swift; sourceTree = "<group>"; };
 		8403F5811BDBCB9B0071B580 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8403F58D1BDBCCF00071B580 /* FollowerListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowerListViewController.swift; sourceTree = "<group>"; };
+		8403F5911BDBCD2B0071B580 /* FollowerList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FollowerList.storyboard; sourceTree = "<group>"; };
+		8403F5931BDBDF090071B580 /* MesseageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MesseageViewController.swift; sourceTree = "<group>"; };
+		8403F5951BDBDF160071B580 /* MessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MessageViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				8403F55F1BDBCB9B0071B580 /* AppDelegate.swift */,
+				8403F5901BDBCD0F0071B580 /* ViewControllers */,
+				8403F58F1BDBCD070071B580 /* Storyboards */,
 				8403F5611BDBCB9B0071B580 /* ViewController.swift */,
 				8403F5631BDBCB9B0071B580 /* Main.storyboard */,
 				8403F5661BDBCB9B0071B580 /* Assets.xcassets */,
@@ -123,6 +133,24 @@
 				8403F5811BDBCB9B0071B580 /* Info.plist */,
 			);
 			path = TwitterClientUITests;
+			sourceTree = "<group>";
+		};
+		8403F58F1BDBCD070071B580 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				8403F5911BDBCD2B0071B580 /* FollowerList.storyboard */,
+				8403F5951BDBDF160071B580 /* MessageViewController.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		8403F5901BDBCD0F0071B580 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8403F58D1BDBCCF00071B580 /* FollowerListViewController.swift */,
+				8403F5931BDBDF090071B580 /* MesseageViewController.swift */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +256,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8403F5961BDBDF160071B580 /* MessageViewController.storyboard in Resources */,
+				8403F5921BDBCD2B0071B580 /* FollowerList.storyboard in Resources */,
 				8403F56A1BDBCB9B0071B580 /* LaunchScreen.storyboard in Resources */,
 				8403F5671BDBCB9B0071B580 /* Assets.xcassets in Resources */,
 				8403F5651BDBCB9B0071B580 /* Main.storyboard in Resources */,
@@ -255,8 +285,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8403F5941BDBDF090071B580 /* MesseageViewController.swift in Sources */,
 				8403F5621BDBCB9B0071B580 /* ViewController.swift in Sources */,
 				8403F5601BDBCB9B0071B580 /* AppDelegate.swift in Sources */,
+				8403F58E1BDBCCF00071B580 /* FollowerListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
