@@ -18,34 +18,115 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N0Z-dk-ndC">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N0Z-dk-ndC">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="554"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="554" id="L6U-ty-57S"/>
                                 </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageTableViewCell" rowHeight="66" id="xJn-2o-Q0g" customClass="MessageTableViewCell" customModule="TwitterClient" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xJn-2o-Q0g" id="uvo-l9-eSt">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="65.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ああああああああああああああああああああああああああああ" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPQ-SU-ffF">
+                                                    <rect key="frame" x="303" y="12" width="289" height="36"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="36" id="y4n-S8-wm3"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="zPe-LL-vQm"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="y4n-S8-wm3"/>
+                                                        </mask>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="JPQ-SU-ffF" firstAttribute="trailing" secondItem="uvo-l9-eSt" secondAttribute="trailingMargin" id="29A-S0-dzV"/>
+                                                <constraint firstItem="JPQ-SU-ffF" firstAttribute="top" secondItem="uvo-l9-eSt" secondAttribute="topMargin" constant="-19" id="HJ3-wS-YoL"/>
+                                                <constraint firstItem="JPQ-SU-ffF" firstAttribute="trailing" secondItem="uvo-l9-eSt" secondAttribute="trailingMargin" id="KnB-wd-BeL"/>
+                                                <constraint firstItem="JPQ-SU-ffF" firstAttribute="top" secondItem="uvo-l9-eSt" secondAttribute="topMargin" constant="4" id="RYt-L1-Pxd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="JPQ-SU-ffF" secondAttribute="bottom" constant="9.5" id="Xqi-iH-1QT"/>
+                                                <constraint firstItem="JPQ-SU-ffF" firstAttribute="trailing" secondItem="uvo-l9-eSt" secondAttribute="trailingMargin" id="cq9-x1-ADh"/>
+                                                <constraint firstItem="JPQ-SU-ffF" firstAttribute="trailing" secondItem="uvo-l9-eSt" secondAttribute="trailingMargin" id="knP-34-eNI"/>
+                                                <constraint firstItem="JPQ-SU-ffF" firstAttribute="bottom" secondItem="uvo-l9-eSt" secondAttribute="bottomMargin" constant="-9.5" id="nKh-F1-Oja"/>
+                                                <constraint firstItem="JPQ-SU-ffF" firstAttribute="top" secondItem="uvo-l9-eSt" secondAttribute="topMargin" constant="4" id="qT2-gm-Q4u"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="JPQ-SU-ffF" secondAttribute="bottom" constant="121" id="um7-MI-aYC"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="HJ3-wS-YoL"/>
+                                                    <exclude reference="cq9-x1-ADh"/>
+                                                    <exclude reference="knP-34-eNI"/>
+                                                    <exclude reference="um7-MI-aYC"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <connections>
+                                            <outlet property="messageLabel" destination="JPQ-SU-ffF" id="vr6-ve-qmh"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="OXv-Xf-8v6" id="ecb-Pc-SdW"/>
+                                    <outlet property="delegate" destination="OXv-Xf-8v6" id="bpg-Qq-8gQ"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6By-eP-mfs">
                                 <rect key="frame" x="0.0" y="554" width="600" height="46"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="てすと" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wfR-17-Yqu">
-                                        <rect key="frame" x="8" y="8" width="584" height="33"/>
+                                        <rect key="frame" x="8" y="8" width="486" height="33"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.1638406902" green="1" blue="0.96995503270000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3E-XW-h3j">
+                                        <rect key="frame" x="502" y="8" width="90" height="30"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="fUm-Ku-QsP"/>
+                                        </constraints>
+                                        <state key="normal" title="Post"/>
+                                        <connections>
+                                            <action selector="postMessage:" destination="OXv-Xf-8v6" eventType="touchUpInside" id="lg5-51-VCL"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="2s3-t5-46z"/>
+                                    <constraint firstItem="p3E-XW-h3j" firstAttribute="leading" secondItem="wfR-17-Yqu" secondAttribute="trailing" constant="8" id="31p-Tr-PZN"/>
                                     <constraint firstAttribute="bottom" secondItem="wfR-17-Yqu" secondAttribute="bottom" constant="5" id="3g3-lp-tYl"/>
                                     <constraint firstItem="wfR-17-Yqu" firstAttribute="leading" secondItem="6By-eP-mfs" secondAttribute="leading" constant="8" id="6og-lJ-1UH"/>
+                                    <constraint firstAttribute="bottom" secondItem="p3E-XW-h3j" secondAttribute="bottom" constant="8" id="AuB-gc-fE3"/>
+                                    <constraint firstAttribute="trailing" secondItem="p3E-XW-h3j" secondAttribute="trailing" constant="8" id="QCj-pO-HLI"/>
+                                    <constraint firstItem="p3E-XW-h3j" firstAttribute="top" secondItem="6By-eP-mfs" secondAttribute="top" constant="8" id="UuO-VO-vhF"/>
                                     <constraint firstAttribute="trailing" secondItem="wfR-17-Yqu" secondAttribute="trailing" constant="8" id="Vl4-Z1-qJg"/>
                                     <constraint firstItem="wfR-17-Yqu" firstAttribute="top" secondItem="6By-eP-mfs" secondAttribute="top" constant="8" id="bxi-k8-tOR"/>
+                                    <constraint firstItem="p3E-XW-h3j" firstAttribute="trailing" secondItem="6By-eP-mfs" secondAttribute="trailingMargin" id="eP4-ng-oqM"/>
+                                    <constraint firstItem="p3E-XW-h3j" firstAttribute="leading" secondItem="wfR-17-Yqu" secondAttribute="trailing" constant="8" symbolic="YES" id="frW-yu-77f"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Vl4-Z1-qJg"/>
+                                        <exclude reference="31p-Tr-PZN"/>
+                                        <exclude reference="QCj-pO-HLI"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <animations/>
