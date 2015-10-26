@@ -25,6 +25,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="554" id="L6U-ty-57S"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="L6U-ty-57S"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="OXv-Xf-8v6" id="Q2H-cG-Chs"/>
                                     <outlet property="delegate" destination="OXv-Xf-8v6" id="Sgi-vV-GbP"/>
@@ -86,10 +91,18 @@
                             <constraint firstItem="N0Z-dk-ndC" firstAttribute="trailing" secondItem="6By-eP-mfs" secondAttribute="trailing" id="a3J-cF-08E"/>
                             <constraint firstItem="6By-eP-mfs" firstAttribute="leading" secondItem="u3B-Z1-ZkN" secondAttribute="leadingMargin" constant="-20" id="dF6-TI-a8S"/>
                             <constraint firstItem="6By-eP-mfs" firstAttribute="bottom" secondItem="gs6-js-279" secondAttribute="top" id="eTg-ck-w4n"/>
+                            <constraint firstItem="6By-eP-mfs" firstAttribute="top" secondItem="N0Z-dk-ndC" secondAttribute="bottom" id="jTu-ty-VAe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6By-eP-mfs" secondAttribute="trailing" constant="-20" id="qBK-4w-Clu"/>
                             <constraint firstItem="N0Z-dk-ndC" firstAttribute="leading" secondItem="6By-eP-mfs" secondAttribute="leading" id="r5L-bv-ruG"/>
                             <constraint firstItem="6By-eP-mfs" firstAttribute="top" secondItem="N0Z-dk-ndC" secondAttribute="bottom" id="uBP-wg-veb"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="a3J-cF-08E"/>
+                                <exclude reference="r5L-bv-ruG"/>
+                                <exclude reference="uBP-wg-veb"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="commentView" destination="6By-eP-mfs" id="GzM-UY-mRH"/>

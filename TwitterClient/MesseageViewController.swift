@@ -22,7 +22,9 @@ class MessageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide:", name: UIKeyboardDidHideNotification, object: nil)
         self.view.backgroundColor = UIColor.redColor()
         let tap = UITapGestureRecognizer(target: self, action: "tap")
         self.view.addGestureRecognizer(tap)
@@ -110,12 +112,32 @@ class MessageViewController: UIViewController {
                     //self.commentView.frame.origin.y = keyboardRect!.origin.y - self.commentView.frame.size.height
                     self.commentView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
                     self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
-                    self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
+                    //if self.tableView.contentSize.height > self.tableView.frame.size.height {
+                    //    self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
+                    //    print(self.tableView.contentSize.height - self.tableView.frame.size.height)
+                    //    print(self.tableView.contentSize.height)
+                    //    print(self.tableView.frame.size.height)
+                    //}
+                    let indexPath = NSIndexPath(forRow: self.tableView.numberOfRowsInSection(0) - 1,
+                        inSection: self.tableView.numberOfSections - 1)
+                    self.tableView.scrollToRowAtIndexPath(indexPath,
+                        atScrollPosition: UITableViewScrollPosition.Bottom,
+                        animated: true)
+                    //self.tableView.scrollToRowAtIndexPath(
+                    //    NSIndexPath(forRow: self.tableView.numberOfRowsInSection(self.tableView.numberOfSections - 1),
+                    //    inSection: self.tableView.numberOfSections - 1),
+                    //    atScrollPosition: .Bottom,
+                    //    animated: true
+                    //)
                 })
             }
         }
     }
-    
+
+    func keyboardDidShow(notification: NSNotification) {
+        //self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
+    }
+
     func keyboardWillHide(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             if let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSTimeInterval {
@@ -126,14 +148,34 @@ class MessageViewController: UIViewController {
             }
         }
     }
+
+    func keyboardDidHide(notification: NSNotification) {
+        //self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
+    }
     
     func tap() {
-        self.textView.resignFirstResponder()
+        textView.resignFirstResponder()
     }
     
     @IBAction func postMessage(sender: AnyObject) {
         messages.append(Message(text: textView.text, type: .Me))
+        let indexPath = NSIndexPath(forRow: self.tableView.numberOfRowsInSection(0) - 1,
+            inSection: self.tableView.numberOfSections - 1)
+        self.tableView.scrollToRowAtIndexPath(indexPath,
+            atScrollPosition: UITableViewScrollPosition.Bottom,
+            animated: true)
+
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("someMethod"), userInfo: nil, repeats: false)
+
+    }
+
+    func someMethod() {
         messages.append(Message(text: " \(textView.text) \(textView.text)", type: .Friend))
+        let index = NSIndexPath(forRow: self.tableView.numberOfRowsInSection(0) - 1,
+            inSection: self.tableView.numberOfSections - 1)
+        self.tableView.scrollToRowAtIndexPath(index,
+            atScrollPosition: UITableViewScrollPosition.Bottom,
+            animated: true)
     }
 }
 
