@@ -21,29 +21,35 @@ class TwitterListViewController :UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let accountStore = ACAccountStore()
-        let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
-        accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted:Bool, error:NSError?) -> Void in
-            if error != nil {
-                // エラー処理
-                print("error! \(error)")
-                return
+        //NSUserDefaults.standardUserDefaults().removeObjectForKey("authorization")
+        if let obj = NSUserDefaults.standardUserDefaults().objectForKey("authorization") {
+            let account = NSKeyedUnarchiver.unarchiveObjectWithData(obj as! NSData)
+            getTimeline(account as! ACAccount)
+        } else {
+            let accountStore = ACAccountStore()
+            let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
+            accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted:Bool, error:NSError?) -> Void in
+                if error != nil {
+                    // エラー処理
+                    print("error! \(error)")
+                    return
+                }
+                
+                if !granted {
+                    print("error! Twitterアカウントの利用が許可されていません")
+                    return
+                }
+                
+                let accounts = accountStore.accountsWithAccountType(accountType) as! [ACAccount]
+                if accounts.count == 0 {
+                    print("error! 設定画面からアカウントを設定してください")
+                    return
+                }
+                self.showAccountSelectSheet(accounts)
+                
+                // 取得したアカウントで処理を行う...
+                
             }
-            
-            if !granted {
-                print("error! Twitterアカウントの利用が許可されていません")
-                return
-            }
-            
-            let accounts = accountStore.accountsWithAccountType(accountType) as! [ACAccount]
-            if accounts.count == 0 {
-                print("error! 設定画面からアカウントを設定してください")
-                return
-            }
-            self.showAccountSelectSheet(accounts)
-            
-            // 取得したアカウントで処理を行う...
-            
         }
     }
     
@@ -66,7 +72,9 @@ class TwitterListViewController :UIViewController {
                     //
                     print("your select account is \(account)")
                     self.twitterAccount = account
-                    self.getTimeline()
+                    let obj = NSKeyedArchiver.archivedDataWithRootObject(account)
+                    NSUserDefaults.standardUserDefaults().setObject(obj, forKey: "authorization")
+                    self.getTimeline(self.twitterAccount!)
             }))
         }
         
@@ -78,7 +86,7 @@ class TwitterListViewController :UIViewController {
     }
     
     // タイムラインを取得する
-    private func getTimeline() {
+    private func getTimeline(account: ACAccount) {
         let URL = NSURL(string: "https://api.twitter.com/1.1/followers/list.json")
         
         // GET/POSTやパラメータに気をつけてリクエスト情報を生成
@@ -88,7 +96,7 @@ class TwitterListViewController :UIViewController {
             parameters: nil)
         
         // 認証したアカウントをセット
-        request.account = self.twitterAccount
+        request.account = account
         
         // APIコールを実行
         request.performRequestWithHandler { (responseData, urlResponse, error) -> Void in
