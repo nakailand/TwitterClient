@@ -26,19 +26,28 @@ class MessageViewController: UIViewController {
         self.view.backgroundColor = UIColor.redColor()
         let tap = UITapGestureRecognizer(target: self, action: "tap")
         self.view.addGestureRecognizer(tap)
+
         tableView.separatorColor = UIColor.clearColor()
         tableView.estimatedRowHeight = 90
         tableView.registerClass(MessageTableViewCell.self, forCellReuseIdentifier: messageCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
+        messages = []
         messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
+        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
+        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
+        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
+        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
+        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
         messages.append(Message(text: "BBBBBB", type: .Friend))
         messages.append(Message(text: "aaaaaa", type: .Me))
         messages.append(Message(text: "BBBBBB", type: .Friend))
         messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
         messages.append(Message(text: "BBBBBB", type: .Friend))
         messages.append(Message(text: "aaaaaa", type: .Me))
         messages.append(Message(text: "BBBBBB", type: .Friend))
@@ -158,6 +167,7 @@ extension MessageViewController: UITableViewDataSource {
         ////cell.messageLabel.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         ////cell.messageLabel.backgroundColor = UIColor(patternImage: newImage)
         //cell.messageLabel.backgroundColor = UIColor(patternImage: image!)
+        //cell!.textLabel?.text = messages[indexPath.row].text
         cell.setupData(messages[indexPath.row])
         //cell.messageLabel.backgroundColor = UIColor.redColor()
         //cell.messageLabel.text = messages[indexPath.row].text
@@ -175,7 +185,7 @@ extension MessageViewController: UITableViewDataSource {
         messageLabel.backgroundColor = UIColor.purpleColor()
         //messageLabel.backgroundColor = UIColor.clearColor()
         messageLabel.sizeToFit()
-        return max(messageLabel.frame.size.height + 40, 44)
+        return max(messageLabel.frame.size.height + 10, 44)
     }
 }
 

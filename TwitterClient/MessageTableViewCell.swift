@@ -9,13 +9,17 @@
 import UIKit
 
 class MessageTableViewCell: UITableViewCell {
-    @IBOutlet weak var messageLabel: UILabel!
-    
+    var messageLabel: UILabel!
+    var bubbleImageView: UIImageView!
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        bubbleImageView = UIImageView()
+        messageLabel = UILabel()
+        self.addSubview(bubbleImageView)
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -23,14 +27,12 @@ class MessageTableViewCell: UITableViewCell {
     }
 
     func setupData(message: Message) {
-        let bubbleImageView = UIImageView()
-        let messageLabel = UILabel(frame: CGRect(x: 10, y: 10, width: 220, height: 9999))
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .ByWordWrapping
+        messageLabel.frame = CGRect(x: 10, y: 10, width: 220, height: 9999)
         messageLabel.text = message.text
         messageLabel.font = UIFont.systemFontOfSize(13)
-        //messageLabel.backgroundColor = UIColor.purpleColor()
-        //messageLabel.backgroundColor = UIColor.clearColor()
+        messageLabel.backgroundColor = UIColor.clearColor()
         messageLabel.sizeToFit()
         bubbleImageView.addSubview(messageLabel)
         switch message.type {
@@ -42,6 +44,5 @@ class MessageTableViewCell: UITableViewCell {
             bubbleImageView.frame = CGRect(x: 0, y: 0, width: messageLabel.frame.size.width + 30, height: messageLabel.frame.size.height + 20)
         }
         bubbleImageView.backgroundColor = UIColor.yellowColor()
-        self.addSubview(bubbleImageView)
     }
 }
