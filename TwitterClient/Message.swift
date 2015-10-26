@@ -8,6 +8,11 @@
 
 import Foundation
 
+
 struct Message {
+    enum User {
+        case Me, Friend
+    }
     let text: String
+    let type: User
 }

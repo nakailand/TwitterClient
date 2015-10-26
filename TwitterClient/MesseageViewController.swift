@@ -18,6 +18,7 @@ class MessageViewController: UIViewController {
             tableView.reloadData()
         }
     }
+    let messageCellIdentifier = "MessageTableViewCell"
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
@@ -27,7 +28,61 @@ class MessageViewController: UIViewController {
         self.view.addGestureRecognizer(tap)
         tableView.separatorColor = UIColor.clearColor()
         tableView.estimatedRowHeight = 90
+        tableView.registerClass(MessageTableViewCell.self, forCellReuseIdentifier: messageCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        messages.append(Message(text: "aaaaaa", type: .Me))
+        messages.append(Message(text: "BBBBBB", type: .Friend))
+        tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -68,7 +123,8 @@ class MessageViewController: UIViewController {
     }
     
     @IBAction func postMessage(sender: AnyObject) {
-        messages.append(Message(text: textView.text))
+        messages.append(Message(text: textView.text, type: .Me))
+        messages.append(Message(text: " \(textView.text) \(textView.text)", type: .Friend))
     }
 }
 
@@ -102,12 +158,24 @@ extension MessageViewController: UITableViewDataSource {
         ////cell.messageLabel.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         ////cell.messageLabel.backgroundColor = UIColor(patternImage: newImage)
         //cell.messageLabel.backgroundColor = UIColor(patternImage: image!)
-        cell.messageLabel.backgroundColor = UIColor.redColor()
-        cell.messageLabel.text = messages[indexPath.row].text
-        cell.messageLabel.sizeToFit()
-        cell.selectionStyle = .None
-        cell.layoutIfNeeded()
+        cell.setupData(messages[indexPath.row])
+        //cell.messageLabel.backgroundColor = UIColor.redColor()
+        //cell.messageLabel.text = messages[indexPath.row].text
+        //cell.messageLabel.sizeToFit()
+        //cell.selectionStyle = .None
+        //cell.layoutIfNeeded()
         return cell
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let messageLabel = UILabel(frame: CGRect(x: 15, y: 10, width: 220, height: 9999))
+        messageLabel.numberOfLines = 0
+        messageLabel.lineBreakMode = .ByWordWrapping
+        messageLabel.text = messages[indexPath.row].text
+        messageLabel.backgroundColor = UIColor.purpleColor()
+        //messageLabel.backgroundColor = UIColor.clearColor()
+        messageLabel.sizeToFit()
+        return max(messageLabel.frame.size.height + 40, 44)
     }
 }
 
