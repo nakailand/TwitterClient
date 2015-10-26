@@ -21,7 +21,7 @@ class TwitterListViewController :UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //NSUserDefaults.standardUserDefaults().removeObjectForKey("authorization")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("authorization")
         if let obj = NSUserDefaults.standardUserDefaults().objectForKey("authorization") {
             let account = NSKeyedUnarchiver.unarchiveObjectWithData(obj as! NSData)
             getTimeline(account as! ACAccount)
@@ -115,6 +115,7 @@ class TwitterListViewController :UIViewController {
                             for ele in arr.enumerate() {
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.followers.append(ele.element["screen_name"] as! String)
+                                    print(ele.element["profile_image_url"] as! String)
                                 })
                             }
                         }
@@ -139,10 +140,11 @@ extension TwitterListViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FollowerTableViewCell")
-        cell?.textLabel?.text = "@\(followers[indexPath.row])"
-        cell?.selectionStyle = .None
+        let cell = tableView.dequeueReusableCellWithIdentifier("FollowerTableViewCell") as! FollowerListTableViewCell
+        cell.icon.image = try! UIImage(data: NSData(contentsOfURL: NSURL(string: "https://pbs.twimg.com/profile_images/589847230439239680/TCd0xz7Q_400x400.jpg")!, options: NSDataReadingOptions.DataReadingMappedIfSafe))
+        print(cell.icon.image!)
+        cell.nameLabel.text = "aaaa"
         
-        return cell!
+        return cell
     }
 }

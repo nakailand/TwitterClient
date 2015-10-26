@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3MF-bw-Sc7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3MF-bw-Sc7">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -23,21 +23,48 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowerTableViewCell" id="7bK-Tj-2Zp">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowerTableViewCell" id="7bK-Tj-2Zp" customClass="FollowerListTableViewCell" customModule="TwitterClient" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7bK-Tj-2Zp" id="dCU-4j-VEM">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KPS-SX-Kn8">
-                                                    <rect key="frame" x="41" y="0.0" width="47" height="36"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="left_bubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="KPS-SX-Kn8">
+                                                    <rect key="frame" x="8" y="4" width="47" height="36"/>
                                                     <animations/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05V-XS-4ql">
+                                                    <rect key="frame" x="63" y="11" width="529" height="21"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="529" id="O7m-iT-KhI"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstItem="05V-XS-4ql" firstAttribute="trailing" secondItem="dCU-4j-VEM" secondAttribute="trailingMargin" id="Cp0-jf-p7Q"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="KPS-SX-Kn8" secondAttribute="bottom" constant="-4.5" id="LrD-v2-LKe"/>
+                                                <constraint firstItem="05V-XS-4ql" firstAttribute="top" secondItem="dCU-4j-VEM" secondAttribute="topMargin" constant="3" id="ODl-dz-OZt"/>
+                                                <constraint firstItem="05V-XS-4ql" firstAttribute="trailing" secondItem="dCU-4j-VEM" secondAttribute="trailingMargin" id="VSG-pv-lXP"/>
+                                                <constraint firstItem="05V-XS-4ql" firstAttribute="centerY" secondItem="KPS-SX-Kn8" secondAttribute="centerY" id="bHZ-01-LYc"/>
+                                                <constraint firstItem="05V-XS-4ql" firstAttribute="leading" secondItem="KPS-SX-Kn8" secondAttribute="trailing" constant="8" id="dyy-q5-bsM"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="05V-XS-4ql" secondAttribute="bottom" constant="4" id="hHv-Ch-0w5"/>
+                                                <constraint firstItem="05V-XS-4ql" firstAttribute="leading" secondItem="KPS-SX-Kn8" secondAttribute="trailing" constant="8" id="qWJ-Ig-Thy"/>
+                                                <constraint firstItem="KPS-SX-Kn8" firstAttribute="top" secondItem="dCU-4j-VEM" secondAttribute="topMargin" constant="-4" id="t9q-BK-FJw"/>
+                                                <constraint firstItem="KPS-SX-Kn8" firstAttribute="leading" secondItem="dCU-4j-VEM" secondAttribute="leadingMargin" id="vfM-bP-DSb"/>
+                                                <constraint firstItem="05V-XS-4ql" firstAttribute="top" secondItem="dCU-4j-VEM" secondAttribute="topMargin" constant="3" id="voB-ef-3mL"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
+                                        <connections>
+                                            <outlet property="icon" destination="KPS-SX-Kn8" id="zwj-dB-qvZ"/>
+                                            <outlet property="nameLabel" destination="05V-XS-4ql" id="FXZ-7p-qOx"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -84,4 +111,7 @@
             <point key="canvasLocation" x="433" y="444"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="left_bubble.png" width="43" height="32"/>
+    </resources>
 </document>

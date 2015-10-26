@@ -37,12 +37,12 @@ class MessageTableViewCell: UITableViewCell {
         bubbleImageView.addSubview(messageLabel)
         switch message.type {
         case .Me:
-            bubbleImageView.image = UIImage(named: "right_bubble")?.resizableImageWithCapInsets(UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15), resizingMode: UIImageResizingMode.Stretch)
-            bubbleImageView.frame = CGRect(x: UIScreen.mainScreen().bounds.size.width - messageLabel.frame.size.width - 30, y: 0, width: messageLabel.frame.size.width + 30, height: messageLabel.frame.size.height + 20)
+            bubbleImageView.image = UIImage(named: "right_bubble")?.resizableImageWithCapInsets(UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 20), resizingMode: UIImageResizingMode.Stretch)
+            bubbleImageView.frame = CGRect(x: UIScreen.mainScreen().bounds.size.width - messageLabel.frame.size.width - 30, y: 5, width: messageLabel.frame.size.width + 25, height: messageLabel.frame.size.height + 20)
         case .Friend:
-            bubbleImageView.image = UIImage(named: "left_bubble")?.resizableImageWithCapInsets(UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15), resizingMode: UIImageResizingMode.Stretch)
-            bubbleImageView.frame = CGRect(x: 0, y: 0, width: messageLabel.frame.size.width + 30, height: messageLabel.frame.size.height + 20)
+            messageLabel.frame.origin.x = 15
+            bubbleImageView.image = UIImage(named: "left_bubble")?.resizableImageWithCapInsets(UIEdgeInsets(top: 15, left: 24, bottom: 15, right: 15), resizingMode: UIImageResizingMode.Stretch)
+            bubbleImageView.frame = CGRect(x: 10, y: 7, width: messageLabel.frame.size.width + 30, height: messageLabel.frame.size.height + 20)
         }
-        bubbleImageView.backgroundColor = UIColor.yellowColor()
     }
 }

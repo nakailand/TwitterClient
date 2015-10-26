@@ -22,9 +22,7 @@ class MessageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide:", name: UIKeyboardDidHideNotification, object: nil)
         self.view.backgroundColor = UIColor.redColor()
         let tap = UITapGestureRecognizer(target: self, action: "tap")
         self.view.addGestureRecognizer(tap)
@@ -109,33 +107,20 @@ class MessageViewController: UIViewController {
             let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue()
             if let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSTimeInterval {
                 UIView.animateWithDuration(duration, animations: {
-                    //self.commentView.frame.origin.y = keyboardRect!.origin.y - self.commentView.frame.size.height
                     self.commentView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
                     self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
-                    //if self.tableView.contentSize.height > self.tableView.frame.size.height {
-                    //    self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
-                    //    print(self.tableView.contentSize.height - self.tableView.frame.size.height)
-                    //    print(self.tableView.contentSize.height)
-                    //    print(self.tableView.frame.size.height)
-                    //}
-                    let indexPath = NSIndexPath(forRow: self.tableView.numberOfRowsInSection(0) - 1,
-                        inSection: self.tableView.numberOfSections - 1)
-                    self.tableView.scrollToRowAtIndexPath(indexPath,
+                    let indexPath = NSIndexPath(
+                        forRow: self.tableView.numberOfRowsInSection(0) - 1,
+                        inSection: self.tableView.numberOfSections - 1
+                    )
+                    self.tableView.scrollToRowAtIndexPath(
+                        indexPath,
                         atScrollPosition: UITableViewScrollPosition.Bottom,
-                        animated: true)
-                    //self.tableView.scrollToRowAtIndexPath(
-                    //    NSIndexPath(forRow: self.tableView.numberOfRowsInSection(self.tableView.numberOfSections - 1),
-                    //    inSection: self.tableView.numberOfSections - 1),
-                    //    atScrollPosition: .Bottom,
-                    //    animated: true
-                    //)
+                        animated: true
+                    )
                 })
             }
         }
-    }
-
-    func keyboardDidShow(notification: NSNotification) {
-        //self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
     }
 
     func keyboardWillHide(notification: NSNotification) {
@@ -149,10 +134,6 @@ class MessageViewController: UIViewController {
         }
     }
 
-    func keyboardDidHide(notification: NSNotification) {
-        //self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
-    }
-    
     func tap() {
         textView.resignFirstResponder()
     }
@@ -196,26 +177,7 @@ extension MessageViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCellWithIdentifier("MessageTableViewCell") as? MessageTableViewCell else {
             return UITableViewCell()
         }
-        //let image = UIImage(named: "right_bubble")
-        //let imageSize = cell.messageLabel.frame.size
-        ////let maximumLabelSize = CGSize(width: self.view.bounds.width, height: 9999)
-        ////let expectedLabelSize = cell.messageLabel.text.
-        //UIGraphicsBeginImageContext(imageSize)
-        //image!.drawInRect(CGRect(x: 0, y: 0, width: cell.messageLabel.frame.size.width + 400, height: cell.messageLabel.frame.size.height))
-        //let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        //UIGraphicsEndImageContext()
-        ////cell.messageLabel.clipsToBounds = true
-        ////cell.messageLabel.backgroundColor = UIColor.redColor()
-        ////cell.messageLabel.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-        ////cell.messageLabel.backgroundColor = UIColor(patternImage: newImage)
-        //cell.messageLabel.backgroundColor = UIColor(patternImage: image!)
-        //cell!.textLabel?.text = messages[indexPath.row].text
         cell.setupData(messages[indexPath.row])
-        //cell.messageLabel.backgroundColor = UIColor.redColor()
-        //cell.messageLabel.text = messages[indexPath.row].text
-        //cell.messageLabel.sizeToFit()
-        //cell.selectionStyle = .None
-        //cell.layoutIfNeeded()
         return cell
     }
 
@@ -224,10 +186,10 @@ extension MessageViewController: UITableViewDataSource {
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .ByWordWrapping
         messageLabel.text = messages[indexPath.row].text
-        messageLabel.backgroundColor = UIColor.purpleColor()
-        //messageLabel.backgroundColor = UIColor.clearColor()
+        messageLabel.font = UIFont.systemFontOfSize(13)
         messageLabel.sizeToFit()
-        return max(messageLabel.frame.size.height + 10, 44)
+        print(messageLabel.frame.size.height)
+        return max(messageLabel.frame.size.height + 30, 44)
     }
 }
 
