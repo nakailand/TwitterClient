@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Accounts
+import Social
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,9 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        let vc = UIStoryboard(name: "FollowerList", bundle: nil).instantiateInitialViewController()
-        self.window?.rootViewController = vc
-        self.window?.makeKeyAndVisible()
+        
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("authorization")
+        if let authorizationObj = NSUserDefaults.standardUserDefaults().objectForKey("authorization") {
+            let account = NSKeyedUnarchiver.unarchiveObjectWithData(authorizationObj as! NSData)
+            let followerListViewController = UIStoryboard(name: "FollowerList", bundle: nil).instantiateInitialViewController() as! TwitterListViewController
+            followerListViewController.twitterAccount = account as? ACAccount
+            self.window?.rootViewController = UINavigationController(rootViewController: followerListViewController)
+            self.window?.makeKeyAndVisible()
+        }
         
         return true
     }

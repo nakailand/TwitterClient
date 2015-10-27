@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HTe-rC-ceF">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Twitter認証-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TwitterClient" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,11 +18,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgx-ja-tOh">
-                                <rect key="frame" x="285" y="285" width="46" height="30"/>
+                                <rect key="frame" x="269" y="285" width="78" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Twitter認証"/>
                                 <connections>
-                                    <action selector="authenticate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j6D-o9-haa"/>
+                                    <action selector="authenticate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vhf-JM-C2z"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -30,11 +30,43 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tgx-ja-tOh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="JbY-Db-9f0"/>
-                            <constraint firstItem="tgx-ja-tOh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="285" id="lbY-no-MjP"/>
+                            <constraint firstItem="tgx-ja-tOh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Mg4-5W-j0l"/>
+                            <constraint firstItem="tgx-ja-tOh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="8" id="W8k-am-Wlx"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="tgx-ja-tOh" secondAttribute="bottom" constant="285" id="hHC-V2-cjT"/>
+                            <constraint firstItem="tgx-ja-tOh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="269" id="kXQ-c2-n8g"/>
+                            <constraint firstItem="tgx-ja-tOh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="221" id="sQB-iB-Crh"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="JbY-Db-9f0"/>
+                                <exclude reference="kXQ-c2-n8g"/>
+                                <exclude reference="sQB-iB-Crh"/>
+                                <exclude reference="hHC-V2-cjT"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" title="Twitter認証" id="n9l-Z3-MB9"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1117" y="406"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="YrM-a2-uoG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HTe-rC-ceF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fjF-m0-GTo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="hQM-qB-DwQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XOt-db-B8j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="305" y="406"/>
         </scene>

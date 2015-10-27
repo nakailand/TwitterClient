@@ -9,11 +9,15 @@
 import UIKit
 
 class MessageViewController: UIViewController {
-    @IBOutlet weak var commentView: UIView!
-    @IBOutlet weak var postButton: UIButton!
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var textView: UITextView!
+    ///@IBOutlet weak var commentView: UIView!
+    ///@IBOutlet weak var postButton: UIButton!
+    ///
+    ///@IBOutlet weak var tableView: UITableView!
+    ///@IBOutlet weak var textView: UITextView!
+    var commentView: UIView!
+    var postButton: UIButton!
+    var tableView: UITableView!
+    var textView: UITextView!
     private var messages: [Message] = [] {
         didSet {
             tableView.reloadData()
@@ -30,11 +34,31 @@ class MessageViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide:", name: UIKeyboardDidHideNotification, object: nil)
         let tap = UITapGestureRecognizer(target: self, action: "tap")
         self.view.addGestureRecognizer(tap)
-
+        tableView = UITableView(frame: self.view.bounds)
+        tableView.frame.size.height -= 44
         tableView.separatorColor = UIColor.clearColor()
         tableView.estimatedRowHeight = 70
         tableView.registerClass(MessageTableViewCell.self, forCellReuseIdentifier: messageCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        commentView = UIView(frame: CGRect(x: 0, y: self.view.bounds.height - 44, width: self.view.bounds.width, height: 44))
+        commentView.backgroundColor = UIColor.grayColor()
+        
+        postButton = UIButton(frame: CGRect(x: self.view.bounds.width - 100, y: 4, width: 96, height: 36))
+        postButton.setTitle("Post", forState: .Normal)
+        postButton.backgroundColor = UIColor.redColor()
+        postButton.addTarget(self, action: "postMessage", forControlEvents: .TouchUpInside)
+        postButton.enabled = false
+        
+        textView = UITextView(frame: CGRect(x: 4, y: 4, width: self.view.bounds.width - 108, height: 36))
+        textView.backgroundColor = UIColor.blueColor()
+        textView.delegate = self
+        commentView.addSubview(textView)
+        commentView.addSubview(postButton)
+        self.view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        self.view.addSubview(commentView)
     }
     private var sum: CGFloat = 0
     
@@ -54,8 +78,10 @@ class MessageViewController: UIViewController {
                     self.commentView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
                     self.diff = self.view.bounds.height - keyboardRect!.origin.y
                     self.keyboardHeight = keyboardRect!.size.height
-                    if self.messages.count > 0 && (self.tableView.contentSize.height > self.view.bounds.height - keyboardRect!.origin.y) {
-                        self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
+                    self.tableView.frame.size.height = self.view.bounds.height - keyboardRect!.size.height - self.commentView.frame.size.height
+                    if self.messages.count > 0 {
+                        //self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
+                        //self.tableView.transform = CGAffineTransformMakeScale(1.0, 0.6)
                         let indexPath = NSIndexPath(
                             forRow: self.tableView.numberOfRowsInSection(0) - 1,
                             inSection: self.tableView.numberOfSections - 1
@@ -75,7 +101,7 @@ class MessageViewController: UIViewController {
         if let userInfo = notification.userInfo {
             if let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSTimeInterval {
                 UIView.animateWithDuration(duration, animations: {
-                    self.tableView.transform = CGAffineTransformIdentity
+                    self.tableView.frame.size.height = self.view.bounds.height - self.commentView.frame.size.height
                     self.commentView.transform = CGAffineTransformIdentity
                 })
             }
@@ -90,9 +116,10 @@ class MessageViewController: UIViewController {
         textView.resignFirstResponder()
     }
     
-    @IBAction func postMessage(sender: AnyObject) {
+    func postMessage() {
         print("beforeMess")
         print(self.tableView.contentSize)
+        print(textView.text)
         messages.append(Message(text: textView.text, type: .Me))
         print("contentsize")
         print(self.tableView.contentSize)
@@ -110,13 +137,22 @@ class MessageViewController: UIViewController {
     }
     
     func me() {
-        if self.tableView.contentSize.height > self.tableView.frame.size.height {
-            self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - diff))
+        //if self.tableView.contentSize.height > self.tableView.frame.size.height {
+            //self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - diff))
             self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
-        }
+            let indexPath = NSIndexPath(
+                forRow: self.tableView.numberOfRowsInSection(0) - 1,
+                inSection: self.tableView.numberOfSections - 1
+            )
+            self.tableView.scrollToRowAtIndexPath(
+                indexPath,
+                atScrollPosition: UITableViewScrollPosition.Bottom,
+                animated: true
+            )
+        //}
         //if self.messages.count > 0 && (self.tableView.contentSize.height > diff) {
-        //    if  self.tableView.contentSize.height > self.view.bounds.height {
-        //        //self.tableView.transform = CGAffineTransformMakeTranslation(0, -diff)
+        //    //if  self.tableView.contentSize.height > self.view.bounds.height {
+        //        self.tableView.transform = CGAffineTransformMakeTranslation(0, -diff)
         //        let indexPath = NSIndexPath(
         //            forRow: self.tableView.numberOfRowsInSection(0) - 1,
         //            inSection: self.tableView.numberOfSections - 1
@@ -126,7 +162,7 @@ class MessageViewController: UIViewController {
         //            atScrollPosition: UITableViewScrollPosition.Bottom,
         //            animated: true
         //        )
-        //    }
+        //    //}
         //}
         //else {
         //  self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.tableView.contentSize.height - (keyboardHeight + commentView.frame.size.height)))
@@ -178,7 +214,7 @@ extension MessageViewController: UITableViewDataSource {
 
 extension MessageViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        textView.resignFirstResponder()
+        //textView.resignFirstResponder()
     }
 }
 

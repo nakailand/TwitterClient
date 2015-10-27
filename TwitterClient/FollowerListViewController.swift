@@ -23,68 +23,15 @@ class TwitterListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("authorization")
-        if let obj = NSUserDefaults.standardUserDefaults().objectForKey("authorization") {
-            let account = NSKeyedUnarchiver.unarchiveObjectWithData(obj as! NSData)
-            getFollowers(account as! ACAccount)
-        } else {
-            let accountStore = ACAccountStore()
-            let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
-            accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted:Bool, error:NSError?) -> Void in
-                if error != nil {
-                    // エラー処理
-                    print("error! \(error)")
-                    return
-                }
-                
-                if !granted {
-                    print("error! Twitterアカウントの利用が許可されていません")
-                    return
-                }
-                
-                let accounts = accountStore.accountsWithAccountType(accountType) as! [ACAccount]
-                if accounts.count == 0 {
-                    print("error! 設定画面からアカウントを設定してください")
-                    return
-                }
-                self.showAccountSelectSheet(accounts)
-                
-                // 取得したアカウントで処理を行う...
-                
-            }
+        if let account = twitterAccount {
+            getFollowers(account)
         }
+        
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    // アカウント選択のActionSheetを表示する
-    private func showAccountSelectSheet(accounts: [ACAccount]) {
-        
-        let alertController = UIAlertController(
-            title: "Twitter",
-            message: "アカウントを選択してください",
-            preferredStyle: .ActionSheet
-        )
-        
-        // アカウント選択のActionSheetを表示するボタン
-        for account in accounts {alertController.addAction(
-                UIAlertAction(
-                    title: account.username,
-                    style: .Default,
-                    handler: { action in
-                        self.twitterAccount = account
-                        let obj = NSKeyedArchiver.archivedDataWithRootObject(account)
-                        NSUserDefaults.standardUserDefaults().setObject(obj, forKey: "authorization")
-                        self.getFollowers(self.twitterAccount!)
-                    }
-                )
-            )
-        }
-        
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     // followerを取得
@@ -128,7 +75,9 @@ class TwitterListViewController: UIViewController {
 extension TwitterListViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let messageViewController = UIStoryboard(name: "MessageViewController", bundle: nil).instantiateInitialViewController() as! MessageViewController
+        //let messageViewController = UIStoryboard(name: "MessageViewController", bundle: nil).instantiateInitialViewController() as! MessageViewController
+        //messageViewController.title = followers[indexPath.row].name
+        let messageViewController = MessageViewController()
         messageViewController.title = followers[indexPath.row].name
         self.navigationController?.pushViewController(messageViewController, animated: true)
     }
