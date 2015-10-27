@@ -8,6 +8,7 @@
 
 import UIKit
 
+// 吹き出しメッセージを生成する
 class MessageTableViewCell: UITableViewCell {
     var messageLabel: UILabel!
     var bubbleImageView: UIImageView!

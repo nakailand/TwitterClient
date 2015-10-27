@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TextView, PostButtonが載るView
 class MessageView :UIView {
     init() {
         super.init(frame: CGRectZero)
