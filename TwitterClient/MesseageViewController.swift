@@ -10,28 +10,33 @@ import UIKit
 
 class MessageViewController: UIViewController {
     @IBOutlet weak var commentView: UIView!
+    @IBOutlet weak var postButton: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textView: UITextView!
     private var messages: [Message] = [] {
         didSet {
             tableView.reloadData()
+            tableView.layoutIfNeeded()
         }
     }
+    private var diff: CGFloat = 0.0
+    private var keyboardHeight: CGFloat = 0
     let messageCellIdentifier = "MessageTableViewCell"
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-        self.view.backgroundColor = UIColor.redColor()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide:", name: UIKeyboardDidHideNotification, object: nil)
         let tap = UITapGestureRecognizer(target: self, action: "tap")
         self.view.addGestureRecognizer(tap)
 
         tableView.separatorColor = UIColor.clearColor()
-        tableView.estimatedRowHeight = 90
+        tableView.estimatedRowHeight = 70
         tableView.registerClass(MessageTableViewCell.self, forCellReuseIdentifier: messageCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
     }
+    private var sum: CGFloat = 0
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -47,6 +52,8 @@ class MessageViewController: UIViewController {
             if let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSTimeInterval {
                 UIView.animateWithDuration(duration, animations: {
                     self.commentView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
+                    self.diff = self.view.bounds.height - keyboardRect!.origin.y
+                    self.keyboardHeight = keyboardRect!.size.height
                     if self.messages.count > 0 && (self.tableView.contentSize.height > self.view.bounds.height - keyboardRect!.origin.y) {
                         self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
                         let indexPath = NSIndexPath(
@@ -63,7 +70,7 @@ class MessageViewController: UIViewController {
             }
         }
     }
-
+    
     func keyboardWillHide(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             if let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSTimeInterval {
@@ -74,30 +81,66 @@ class MessageViewController: UIViewController {
             }
         }
     }
+    
+    func keyboardDidHide(notification: NSNotification) {
+        postButton.enabled = false
+    }
 
     func tap() {
         textView.resignFirstResponder()
     }
     
     @IBAction func postMessage(sender: AnyObject) {
+        print("beforeMess")
+        print(self.tableView.contentSize)
         messages.append(Message(text: textView.text, type: .Me))
-        let indexPath = NSIndexPath(forRow: self.tableView.numberOfRowsInSection(0) - 1,
-            inSection: self.tableView.numberOfSections - 1)
-        self.tableView.scrollToRowAtIndexPath(indexPath,
-            atScrollPosition: UITableViewScrollPosition.Bottom,
-            animated: true)
-
+        print("contentsize")
+        print(self.tableView.contentSize)
+        print("contentsize")
+        print(self.tableView.contentSize)
+        me()
+        
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("someMethod"), userInfo: nil, repeats: false)
 
     }
 
     func someMethod() {
         messages.append(Message(text: " \(textView.text) \(textView.text)", type: .Friend))
-        let index = NSIndexPath(forRow: self.tableView.numberOfRowsInSection(0) - 1,
-            inSection: self.tableView.numberOfSections - 1)
-        self.tableView.scrollToRowAtIndexPath(index,
-            atScrollPosition: UITableViewScrollPosition.Bottom,
-            animated: true)
+        me()
+    }
+    
+    func me() {
+        if self.tableView.contentSize.height > self.tableView.frame.size.height {
+            self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - diff))
+            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
+        }
+        //if self.messages.count > 0 && (self.tableView.contentSize.height > diff) {
+        //    if  self.tableView.contentSize.height > self.view.bounds.height {
+        //        //self.tableView.transform = CGAffineTransformMakeTranslation(0, -diff)
+        //        let indexPath = NSIndexPath(
+        //            forRow: self.tableView.numberOfRowsInSection(0) - 1,
+        //            inSection: self.tableView.numberOfSections - 1
+        //        )
+        //        self.tableView.scrollToRowAtIndexPath(
+        //            indexPath,
+        //            atScrollPosition: UITableViewScrollPosition.Bottom,
+        //            animated: true
+        //        )
+        //    }
+        //}
+        //else {
+        //  self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.tableView.contentSize.height - (keyboardHeight + commentView.frame.size.height)))
+        //  let indexPath = NSIndexPath(
+        //      forRow: self.tableView.numberOfRowsInSection(0) - 1,
+        //      inSection: self.tableView.numberOfSections - 1
+        //  )
+        //  self.tableView.scrollToRowAtIndexPath(
+        //      indexPath,
+        //      atScrollPosition: UITableViewScrollPosition.Bottom,
+        //      animated: true
+        //  )
+        //  
+        //}
     }
 }
 
@@ -129,7 +172,6 @@ extension MessageViewController: UITableViewDataSource {
         messageLabel.text = messages[indexPath.row].text
         messageLabel.font = UIFont.systemFontOfSize(13)
         messageLabel.sizeToFit()
-        print(messageLabel.frame.size.height)
         return max(messageLabel.frame.size.height + 30, 44)
     }
 }
@@ -139,3 +181,14 @@ extension MessageViewController: UIScrollViewDelegate {
         textView.resignFirstResponder()
     }
 }
+
+extension MessageViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(textView: UITextView) {
+        postButton.enabled = !textView.text.isEmpty
+    }
+    
+    func textViewDidChange(textView: UITextView) {
+        postButton.enabled = !textView.text.isEmpty
+    }
+}
+

@@ -10,7 +10,7 @@ import UIKit
 import Accounts
 import Social
 
-class TwitterListViewController :UIViewController {
+class TwitterListViewController: UIViewController {
     
     var twitterAccount: ACAccount?
     let followersListURL = "https://api.twitter.com/1.1/followers/list.json"

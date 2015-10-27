@@ -38,14 +38,17 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6By-eP-mfs">
                                 <rect key="frame" x="0.0" y="554" width="600" height="46"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="てすと" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wfR-17-Yqu">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wfR-17-Yqu">
                                         <rect key="frame" x="8" y="8" width="486" height="33"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.1638406902" green="1" blue="0.96995503270000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="OXv-Xf-8v6" id="Ejg-Cf-3nk"/>
+                                        </connections>
                                     </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3E-XW-h3j">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3E-XW-h3j">
                                         <rect key="frame" x="502" y="8" width="90" height="30"/>
                                         <animations/>
                                         <constraints>
@@ -106,6 +109,7 @@
                     </view>
                     <connections>
                         <outlet property="commentView" destination="6By-eP-mfs" id="GzM-UY-mRH"/>
+                        <outlet property="postButton" destination="p3E-XW-h3j" id="sc8-Hj-jnt"/>
                         <outlet property="tableView" destination="N0Z-dk-ndC" id="5HV-Ar-VG1"/>
                         <outlet property="textView" destination="wfR-17-Yqu" id="9fd-4a-WiO"/>
                     </connections>
