@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Twitter List View Controller-->
+        <!--Twitter DM-->
         <scene sceneID="fgX-rd-hrf">
             <objects>
                 <viewController id="1KA-Uh-0dy" customClass="TwitterListViewController" customModule="TwitterClient" customModuleProvider="target" sceneMemberID="viewController">
@@ -27,43 +27,45 @@
                                         <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7bK-Tj-2Zp" id="dCU-4j-VEM">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="left_bubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="KPS-SX-Kn8">
-                                                    <rect key="frame" x="8" y="4" width="47" height="36"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zm9-3J-7CG">
+                                                    <rect key="frame" x="46" y="11" width="42" height="20.5"/>
                                                     <animations/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05V-XS-4ql">
-                                                    <rect key="frame" x="63" y="11" width="529" height="21"/>
-                                                    <animations/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="529" id="O7m-iT-KhI"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ifU-D6-OXr">
+                                                    <rect key="frame" x="8" y="7" width="30" height="30"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="Y3H-e7-ZyR"/>
+                                                        <constraint firstAttribute="width" constant="30" id="sC7-x7-UQ8"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstItem="05V-XS-4ql" firstAttribute="trailing" secondItem="dCU-4j-VEM" secondAttribute="trailingMargin" id="Cp0-jf-p7Q"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="KPS-SX-Kn8" secondAttribute="bottom" constant="-4.5" id="LrD-v2-LKe"/>
-                                                <constraint firstItem="05V-XS-4ql" firstAttribute="top" secondItem="dCU-4j-VEM" secondAttribute="topMargin" constant="3" id="ODl-dz-OZt"/>
-                                                <constraint firstItem="05V-XS-4ql" firstAttribute="trailing" secondItem="dCU-4j-VEM" secondAttribute="trailingMargin" id="VSG-pv-lXP"/>
-                                                <constraint firstItem="05V-XS-4ql" firstAttribute="centerY" secondItem="KPS-SX-Kn8" secondAttribute="centerY" id="bHZ-01-LYc"/>
-                                                <constraint firstItem="05V-XS-4ql" firstAttribute="leading" secondItem="KPS-SX-Kn8" secondAttribute="trailing" constant="8" id="dyy-q5-bsM"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="05V-XS-4ql" secondAttribute="bottom" constant="4" id="hHv-Ch-0w5"/>
-                                                <constraint firstItem="05V-XS-4ql" firstAttribute="leading" secondItem="KPS-SX-Kn8" secondAttribute="trailing" constant="8" id="qWJ-Ig-Thy"/>
-                                                <constraint firstItem="KPS-SX-Kn8" firstAttribute="top" secondItem="dCU-4j-VEM" secondAttribute="topMargin" constant="-4" id="t9q-BK-FJw"/>
-                                                <constraint firstItem="KPS-SX-Kn8" firstAttribute="leading" secondItem="dCU-4j-VEM" secondAttribute="leadingMargin" id="vfM-bP-DSb"/>
-                                                <constraint firstItem="05V-XS-4ql" firstAttribute="top" secondItem="dCU-4j-VEM" secondAttribute="topMargin" constant="3" id="voB-ef-3mL"/>
+                                                <constraint firstItem="ifU-D6-OXr" firstAttribute="leading" secondItem="dCU-4j-VEM" secondAttribute="leadingMargin" id="01K-FW-63g"/>
+                                                <constraint firstItem="ifU-D6-OXr" firstAttribute="bottom" secondItem="dCU-4j-VEM" secondAttribute="bottomMargin" constant="1.5" id="BcC-Cb-0Ky"/>
+                                                <constraint firstItem="Zm9-3J-7CG" firstAttribute="leading" secondItem="ifU-D6-OXr" secondAttribute="trailing" constant="8" id="Hjd-hf-Cjf"/>
+                                                <constraint firstItem="Zm9-3J-7CG" firstAttribute="top" secondItem="dCU-4j-VEM" secondAttribute="topMargin" constant="3" id="Pew-VM-q4O"/>
+                                                <constraint firstItem="Zm9-3J-7CG" firstAttribute="centerY" secondItem="dCU-4j-VEM" secondAttribute="centerY" id="bPQ-G0-ZwL"/>
+                                                <constraint firstItem="ifU-D6-OXr" firstAttribute="top" secondItem="dCU-4j-VEM" secondAttribute="topMargin" constant="-1" id="gyM-Mf-S8p"/>
+                                                <constraint firstItem="Zm9-3J-7CG" firstAttribute="leading" secondItem="dCU-4j-VEM" secondAttribute="leading" constant="72" id="j6T-bA-d9i"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="j6T-bA-d9i"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <animations/>
                                         <connections>
-                                            <outlet property="icon" destination="KPS-SX-Kn8" id="zwj-dB-qvZ"/>
-                                            <outlet property="nameLabel" destination="05V-XS-4ql" id="FXZ-7p-qOx"/>
+                                            <outlet property="icon" destination="ifU-D6-OXr" id="5Nt-5n-wme"/>
+                                            <outlet property="nameLabel" destination="Zm9-3J-7CG" id="oul-5C-t1c"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -82,14 +84,14 @@
                             <constraint firstItem="mQJ-TG-zdz" firstAttribute="top" secondItem="39a-9c-ZTm" secondAttribute="bottom" id="i16-U1-Y0x"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="xpR-5b-AXb"/>
+                    <navigationItem key="navigationItem" title="Twitter DM" id="xpR-5b-AXb"/>
                     <connections>
                         <outlet property="tableView" destination="39a-9c-ZTm" id="jUP-Nz-u1q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9cF-Zb-hUy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1245" y="444"/>
+            <point key="canvasLocation" x="1462" y="394"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1BV-rx-z0I">
@@ -111,7 +113,4 @@
             <point key="canvasLocation" x="433" y="444"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="left_bubble.png" width="43" height="32"/>
-    </resources>
 </document>

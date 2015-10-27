@@ -25,7 +25,8 @@
 		8403F5A51BDD16EC0071B580 /* right_bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8403F5A11BDD16EC0071B580 /* right_bubble@2x.png */; settings = {ASSET_TAGS = (); }; };
 		8403F5A91BDD195B0071B580 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F5A81BDD195B0071B580 /* Message.swift */; settings = {ASSET_TAGS = (); }; };
 		8403F5AB1BDD2CAC0071B580 /* MessageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F5AA1BDD2CAC0071B580 /* MessageLabel.swift */; settings = {ASSET_TAGS = (); }; };
-		8403F5AE1BDEA5990071B580 /* FollowerListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F5AD1BDEA5990071B580 /* FollowerListTableView.swift */; settings = {ASSET_TAGS = (); }; };
+		8403F5AE1BDEA5990071B580 /* FollowerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F5AD1BDEA5990071B580 /* FollowerListTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		8403F5B31BDFBF6F0071B580 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F5B21BDFBF6F0071B580 /* Follower.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +71,8 @@
 		8403F5A11BDD16EC0071B580 /* right_bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_bubble@2x.png"; sourceTree = "<group>"; };
 		8403F5A81BDD195B0071B580 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		8403F5AA1BDD2CAC0071B580 /* MessageLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLabel.swift; sourceTree = "<group>"; };
-		8403F5AD1BDEA5990071B580 /* FollowerListTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowerListTableView.swift; sourceTree = "<group>"; };
+		8403F5AD1BDEA5990071B580 /* FollowerListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowerListTableViewCell.swift; sourceTree = "<group>"; };
+		8403F5B21BDFBF6F0071B580 /* Follower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +222,7 @@
 		8403F5A61BDD194A0071B580 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8403F5B11BDFBF600071B580 /* Follower */,
 				8403F5A71BDD194F0071B580 /* Message */,
 			);
 			name = Model;
@@ -236,7 +239,7 @@
 		8403F5AC1BDEA5810071B580 /* FollowerList */ = {
 			isa = PBXGroup;
 			children = (
-				8403F5AD1BDEA5990071B580 /* FollowerListTableView.swift */,
+				8403F5AD1BDEA5990071B580 /* FollowerListTableViewCell.swift */,
 			);
 			name = FollowerList;
 			sourceTree = "<group>";
@@ -255,6 +258,14 @@
 				8403F5911BDBCD2B0071B580 /* FollowerList.storyboard */,
 			);
 			name = FollowerList;
+			sourceTree = "<group>";
+		};
+		8403F5B11BDFBF600071B580 /* Follower */ = {
+			isa = PBXGroup;
+			children = (
+				8403F5B21BDFBF6F0071B580 /* Follower.swift */,
+			);
+			name = Follower;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,13 +405,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8403F5941BDBDF090071B580 /* MesseageViewController.swift in Sources */,
+				8403F5B31BDFBF6F0071B580 /* Follower.swift in Sources */,
 				8403F5AB1BDD2CAC0071B580 /* MessageLabel.swift in Sources */,
 				8403F5621BDBCB9B0071B580 /* ViewController.swift in Sources */,
 				8403F5601BDBCB9B0071B580 /* AppDelegate.swift in Sources */,
 				8403F5A91BDD195B0071B580 /* Message.swift in Sources */,
 				8403F59C1BDD16170071B580 /* MessageTableViewCell.swift in Sources */,
 				8403F58E1BDBCCF00071B580 /* FollowerListViewController.swift in Sources */,
-				8403F5AE1BDEA5990071B580 /* FollowerListTableView.swift in Sources */,
+				8403F5AE1BDEA5990071B580 /* FollowerListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

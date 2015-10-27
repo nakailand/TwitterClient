@@ -31,67 +31,6 @@ class MessageViewController: UIViewController {
         tableView.estimatedRowHeight = 90
         tableView.registerClass(MessageTableViewCell.self, forCellReuseIdentifier: messageCellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension
-        messages = []
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
-        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
-        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
-        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
-        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
-        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", type: .Friend))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        messages.append(Message(text: "aaaaaa", type: .Me))
-        messages.append(Message(text: "BBBBBB", type: .Friend))
-        tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -108,16 +47,18 @@ class MessageViewController: UIViewController {
             if let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSTimeInterval {
                 UIView.animateWithDuration(duration, animations: {
                     self.commentView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
-                    self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
-                    let indexPath = NSIndexPath(
-                        forRow: self.tableView.numberOfRowsInSection(0) - 1,
-                        inSection: self.tableView.numberOfSections - 1
-                    )
-                    self.tableView.scrollToRowAtIndexPath(
-                        indexPath,
-                        atScrollPosition: UITableViewScrollPosition.Bottom,
-                        animated: true
-                    )
+                    if self.messages.count > 0 && (self.tableView.contentSize.height > self.view.bounds.height - keyboardRect!.origin.y) {
+                        self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
+                        let indexPath = NSIndexPath(
+                            forRow: self.tableView.numberOfRowsInSection(0) - 1,
+                            inSection: self.tableView.numberOfSections - 1
+                        )
+                        self.tableView.scrollToRowAtIndexPath(
+                            indexPath,
+                            atScrollPosition: UITableViewScrollPosition.Bottom,
+                            animated: true
+                        )
+                    }
                 })
             }
         }
