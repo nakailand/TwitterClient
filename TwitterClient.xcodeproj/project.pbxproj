@@ -17,7 +17,6 @@
 		8403F58E1BDBCCF00071B580 /* FollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F58D1BDBCCF00071B580 /* FollowerListViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8403F5921BDBCD2B0071B580 /* FollowerList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8403F5911BDBCD2B0071B580 /* FollowerList.storyboard */; settings = {ASSET_TAGS = (); }; };
 		8403F5941BDBDF090071B580 /* MesseageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F5931BDBDF090071B580 /* MesseageViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		8403F5961BDBDF160071B580 /* MessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8403F5951BDBDF160071B580 /* MessageViewController.storyboard */; settings = {ASSET_TAGS = (); }; };
 		8403F59C1BDD16170071B580 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403F59B1BDD16170071B580 /* MessageTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		8403F5A21BDD16EC0071B580 /* left_bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 8403F59E1BDD16EC0071B580 /* left_bubble.png */; settings = {ASSET_TAGS = (); }; };
 		8403F5A31BDD16EC0071B580 /* left_bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8403F59F1BDD16EC0071B580 /* left_bubble@2x.png */; settings = {ASSET_TAGS = (); }; };
@@ -63,7 +62,6 @@
 		8403F58D1BDBCCF00071B580 /* FollowerListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowerListViewController.swift; sourceTree = "<group>"; };
 		8403F5911BDBCD2B0071B580 /* FollowerList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FollowerList.storyboard; sourceTree = "<group>"; };
 		8403F5931BDBDF090071B580 /* MesseageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MesseageViewController.swift; sourceTree = "<group>"; };
-		8403F5951BDBDF160071B580 /* MessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MessageViewController.storyboard; sourceTree = "<group>"; };
 		8403F59B1BDD16170071B580 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		8403F59E1BDD16EC0071B580 /* left_bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_bubble.png; sourceTree = "<group>"; };
 		8403F59F1BDD16EC0071B580 /* left_bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_bubble@2x.png"; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 			isa = PBXGroup;
 			children = (
 				8403F5B01BDEA5BD0071B580 /* FollowerList */,
-				8403F5AF1BDEA5B60071B580 /* Message */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -242,14 +239,6 @@
 				8403F5AD1BDEA5990071B580 /* FollowerListTableViewCell.swift */,
 			);
 			name = FollowerList;
-			sourceTree = "<group>";
-		};
-		8403F5AF1BDEA5B60071B580 /* Message */ = {
-			isa = PBXGroup;
-			children = (
-				8403F5951BDBDF160071B580 /* MessageViewController.storyboard */,
-			);
-			name = Message;
 			sourceTree = "<group>";
 		};
 		8403F5B01BDEA5BD0071B580 /* FollowerList */ = {
@@ -372,7 +361,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8403F5A21BDD16EC0071B580 /* left_bubble.png in Resources */,
-				8403F5961BDBDF160071B580 /* MessageViewController.storyboard in Resources */,
 				8403F5A51BDD16EC0071B580 /* right_bubble@2x.png in Resources */,
 				8403F5921BDBCD2B0071B580 /* FollowerList.storyboard in Resources */,
 				8403F56A1BDBCB9B0071B580 /* LaunchScreen.storyboard in Resources */,

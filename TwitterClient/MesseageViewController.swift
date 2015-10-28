@@ -11,6 +11,7 @@ import UIKit
 // DMを行うクラス
 class MessageViewController: UIViewController {
     let messageCellIdentifier = "MessageTableViewCell"
+    let defaultCellHeight: CGFloat = 44
     let commentViewHeight: CGFloat = 44
     var commentView: MessageView!
     var tableView: UITableView!
@@ -86,7 +87,9 @@ class MessageViewController: UIViewController {
     }
     
     func keyboardDidHide(notification: NSNotification) {
-        commentView.postButton.enabled = false
+        if commentView.textView.text.isEmpty {
+            commentView.postButton.enabled = false
+        }
     }
 
     func closeKeyboard() {
@@ -142,12 +145,17 @@ extension MessageViewController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return max(getMessageHeight(indexPath.row), defaultCellHeight)
+    }
+    
+    // 各メッセージの高さを取得
+    private func getMessageHeight(row: Int) -> CGFloat {
         let messageLabel = UILabel(frame: CGRect(x: 15, y: 10, width: 220, height: 9999))
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .ByWordWrapping
-        messageLabel.text = messages[indexPath.row].text
+        messageLabel.text = messages[row].text
         messageLabel.font = UIFont.systemFontOfSize(13)
         messageLabel.sizeToFit()
-        return max(messageLabel.frame.size.height + 30, 44)
+        return messageLabel.frame.size.height + 25
     }
 }
