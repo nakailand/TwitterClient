@@ -18,15 +18,14 @@ class MessageView :UIView {
     private(set) var textView: UITextView!
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.grayColor()
+        self.backgroundColor = UIColor(red: 247.0/255, green: 247.0/255, blue: 247.0/255, alpha: 1.0)
         
         postButton = UIButton(frame: CGRect(x: self.bounds.width - 100, y: 4, width: 96, height: 36))
         postButton.setTitle("Post", forState: .Normal)
-        postButton.backgroundColor = UIColor.redColor()
+        postButton.setTitleColor(UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1), forState: .Normal)
         postButton.enabled = false
         
         textView = UITextView(frame: CGRect(x: 4, y: 4, width: self.bounds.width - 108, height: 36))
-        textView.backgroundColor = UIColor.blueColor()
         textView.delegate = self
         self.addSubview(textView)
         self.addSubview(postButton)

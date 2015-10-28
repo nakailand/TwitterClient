@@ -45,8 +45,7 @@ class TwitterListViewController: UIViewController {
         
         request.account = account
         
-        request.performRequestWithHandler { (responseData, urlResponse, error) -> Void in
-            
+        request.performRequestWithHandler { (responseData, urlResponse, error) in
             if let error = error {
                 print("error is \(error)")
             } else {
