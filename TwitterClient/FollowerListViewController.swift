@@ -38,34 +38,35 @@ class TwitterListViewController: UIViewController {
     private func getFollowers(account: ACAccount) {
         let URL = NSURL(string: followersListURL)
         
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter,
+        let request = SLRequest(
+            forServiceType: SLServiceTypeTwitter,
             requestMethod: .GET,
             URL: URL,
-            parameters: nil)
+            parameters: nil
+        )
         
         request.account = account
-        
         request.performRequestWithHandler { (responseData, urlResponse, error) in
             if let error = error {
-                print("error is \(error)")
-            } else {
-                let result = try? NSJSONSerialization.JSONObjectWithData(responseData, options: .AllowFragments)
-                if let array = result as? NSDictionary {
-                    for element in array.enumerate() {
-                        if element.index == 1 {
-                            let arr = element.element.value as! NSArray
-                            for ele in arr.enumerate() {
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    self.followers.append(Follower(
-                                        name: ele.element["screen_name"] as! String,
-                                        iconUrl: ele.element["profile_image_url"] as! String
-                                        )
-                                    )
-                                })
-                            }
+                print("error is \(error.localizedDescription)")
+                return
+            }
+            do {
+                let result = try NSJSONSerialization.JSONObjectWithData(responseData, options: .AllowFragments) as! NSDictionary
+                guard let users = result["users"] as? NSArray else {
+                    print("json users error")
+                    return
+                }
+                dispatch_async(dispatch_get_main_queue()) {
+                    users.forEach {
+                        guard let screenName = $0["screen_name"] as? String , let iconUrl = $0["profile_image_url"] as? String else {
+                            return
                         }
+                        self.followers.append(Follower(name: screenName, iconUrl: iconUrl))
                     }
                 }
+            } catch let error as NSError {
+                print("json error: \(error.localizedDescription)")
             }
         }
     }
@@ -74,8 +75,6 @@ class TwitterListViewController: UIViewController {
 extension TwitterListViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        //let messageViewController = UIStoryboard(name: "MessageViewController", bundle: nil).instantiateInitialViewController() as! MessageViewController
-        //messageViewController.title = followers[indexPath.row].name
         let messageViewController = MessageViewController()
         messageViewController.title = followers[indexPath.row].name
         self.navigationController?.pushViewController(messageViewController, animated: true)
@@ -89,16 +88,21 @@ extension TwitterListViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FollowerTableViewCell") as! FollowerListTableViewCell
-        let url = NSURL(string: followers[indexPath.row].iconUrl)
+        guard let cell = tableView.dequeueReusableCellWithIdentifier("FollowerTableViewCell") as? FollowerListTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        guard let url = NSURL(string: followers[indexPath.row].iconUrl) else {
+            return UITableViewCell()
+        }
+        
         do {
-            let data =  try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            let image = UIImage(data: data)
-            cell.icon.image = image
+            let data =  try NSData(contentsOfURL: url, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+            cell.icon.image = UIImage(data: data)
             cell.nameLabel.text = "@\(followers[indexPath.row].name)"
-            
             return cell
-        } catch {
+        } catch let error as NSError {
+            print(error.localizedDescription)
         }
         return UITableViewCell()
     }

@@ -23,6 +23,7 @@ class MessageView :UIView {
         postButton = UIButton(frame: CGRect(x: self.bounds.width - 100, y: 4, width: 96, height: 36))
         postButton.setTitle("Post", forState: .Normal)
         postButton.setTitleColor(UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1), forState: .Normal)
+        postButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
         postButton.enabled = false
         
         textView = UITextView(frame: CGRect(x: 4, y: 4, width: self.bounds.width - 108, height: 36))

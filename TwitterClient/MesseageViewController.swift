@@ -8,8 +8,10 @@
 
 import UIKit
 
+// DMを行うクラス
 class MessageViewController: UIViewController {
     let messageCellIdentifier = "MessageTableViewCell"
+    let commentViewHeight: CGFloat = 44
     var commentView: MessageView!
     var tableView: UITableView!
     private var messages: [Message] = [] {
@@ -32,7 +34,7 @@ class MessageViewController: UIViewController {
     }
     
     private func setupTapGesture() {
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tap"))
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "closeKeyboard"))
     }
     
     private func setupKeyboardObserver() {
@@ -43,7 +45,7 @@ class MessageViewController: UIViewController {
     
     private func setupTableView() {
         tableView = UITableView(frame: self.view.bounds)
-        tableView.frame.size.height -= 44
+        tableView.frame.size.height -= commentViewHeight
         tableView.separatorColor = UIColor.clearColor()
         tableView.estimatedRowHeight = 70
         tableView.registerClass(MessageTableViewCell.self, forCellReuseIdentifier: messageCellIdentifier)
@@ -54,10 +56,11 @@ class MessageViewController: UIViewController {
     }
     
     private func setupMessageView() {
-        commentView = MessageView(frame: CGRect(x: 0, y: self.view.bounds.height - 44, width: self.view.bounds.width, height: 44))
+        commentView = MessageView(frame: CGRect(x: 0, y: self.view.bounds.height - commentViewHeight, width: self.view.bounds.width, height: commentViewHeight))
         commentView.postButton.addTarget(self, action: "postMessage", forControlEvents: .TouchUpInside)
         self.view.addSubview(commentView)
     }
+    
     func keyboardWillShow(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue()
@@ -65,19 +68,7 @@ class MessageViewController: UIViewController {
                 UIView.animateWithDuration(duration, animations: {
                     self.commentView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
                     self.tableView.frame.size.height = self.view.bounds.height - keyboardRect!.size.height - self.commentView.frame.size.height
-                    if self.messages.count > 0 {
-                        //self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - keyboardRect!.origin.y))
-                        //self.tableView.transform = CGAffineTransformMakeScale(1.0, 0.6)
-                        let indexPath = NSIndexPath(
-                            forRow: self.tableView.numberOfRowsInSection(0) - 1,
-                            inSection: self.tableView.numberOfSections - 1
-                        )
-                        self.tableView.scrollToRowAtIndexPath(
-                            indexPath,
-                            atScrollPosition: UITableViewScrollPosition.Bottom,
-                            animated: true
-                        )
-                    }
+                    self.scrollToBottom()
                 })
             }
         }
@@ -98,85 +89,54 @@ class MessageViewController: UIViewController {
         commentView.postButton.enabled = false
     }
 
-    func tap() {
+    func closeKeyboard() {
         commentView.textView.resignFirstResponder()
     }
     
     func postMessage() {
         messages.append(Message(text: commentView.textView.text, type: .Me))
-        scrollToBottom()()
+        //commentView.postButton.enabled = false
+        //commentView.textView.text.removeAll()
+        scrollToBottom()
         
-        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("reply"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: Selector("reply"), userInfo: nil, repeats: false)
     }
 
     func reply() {
         messages.append(Message(text: " \(commentView.textView.text) \(commentView.textView.text)", type: .Friend))
-        scrollToBottom()()
+        scrollToBottom()
     }
     
-    private func scrollToBottom()() {
-        //if self.tableView.contentSize.height > self.tableView.frascrollToBottom().size.height {
-            //self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.view.bounds.height - diff))
-        if self.messages.count > 0 {
-            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
-            let indexPath = NSIndexPath(
-                forRow: self.tableView.numberOfRowsInSection(0) - 1,
-                inSection: self.tableView.numberOfSections - 1
-            )
-            self.tableView.scrollToRowAtIndexPath(
-                indexPath,
-                atScrollPosition: UITableViewScrollPosition.Bottom,
-                animated: true
-            )
+    private func scrollToBottom() {
+        if messages.isEmpty {
+            return
         }
-        //}
-        //if self.messages.count > 0 && (self.tableView.contentSize.height > diff) {
-        //    //if  self.tableView.contentSize.height > self.view.bounds.height {
-        //        self.tableView.transform = CGAffineTransformMakeTranslation(0, -diff)
-        //        let indexPath = NSIndexPath(
-        //            forRow: self.tableView.numberOfRowsInSection(0) - 1,
-        //            inSection: self.tableView.numberOfSections - 1
-        //        )
-        //        self.tableView.scrollToRowAtIndexPath(
-        //            indexPath,
-        //            atScrollPosition: UITableViewScrollPosition.Bottom,
-        //            animated: true
-        //        )
-        //    //}
-        //}
-        //else {
-        //  self.tableView.transform = CGAffineTransformMakeTranslation(0, -(self.tableView.contentSize.height - (keyboardHeight + commentView.frame.size.height)))
-        //  let indexPath = NSIndexPath(
-        //      forRow: self.tableView.numberOfRowsInSection(0) - 1,
-        //      inSection: self.tableView.numberOfSections - 1
-        //  )
-        //  self.tableView.scrollToRowAtIndexPath(
-        //      indexPath,
-        //      atScrollPosition: UITableViewScrollPosition.Bottom,
-        //      animated: true
-        //  )
-        //  
-        //}
+        
+        let indexPath = NSIndexPath(
+            forRow: self.tableView.numberOfRowsInSection(0) - 1,
+            inSection: self.tableView.numberOfSections - 1
+        )
+        
+        self.tableView.scrollToRowAtIndexPath(
+            indexPath,
+            atScrollPosition: UITableViewScrollPosition.Bottom,
+            animated: true
+        )
     }
 }
 
 extension MessageViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //let messageViewController = UIStoryboard(name: "MessageViewController", bundle: nil).instantiateInitialViewController() as! MessageViewController
-        //self.navigationController?.pushViewController(messageViewController, animated: true)
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
     }
 }
 
 extension MessageViewController: UITableViewDataSource {
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
-    }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCellWithIdentifier("MessageTableViewCell") as? MessageTableViewCell else {
             return UITableViewCell()
         }
+        cell.selectionStyle = .None
         cell.setupData(messages[indexPath.row])
         return cell
     }
