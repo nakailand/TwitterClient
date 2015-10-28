@@ -9,7 +9,7 @@
         <!--Twitter DM-->
         <scene sceneID="fgX-rd-hrf">
             <objects>
-                <viewController id="1KA-Uh-0dy" customClass="TwitterListViewController" customModule="TwitterClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1KA-Uh-0dy" customClass="FollowerListViewController" customModule="TwitterClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="k9V-HT-qon"/>
                         <viewControllerLayoutGuide type="bottom" id="mQJ-TG-zdz"/>
@@ -92,7 +92,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9cF-Zb-hUy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1462" y="394"/>
+            <point key="canvasLocation" x="1058" y="504"/>
         </scene>
     </scenes>
 </document>

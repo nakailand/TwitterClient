@@ -10,7 +10,8 @@ import UIKit
 import Accounts
 import Social
 
-class TwitterListViewController: UIViewController {
+/// Followerのリストを表示するクラス
+final class FollowerListViewController: UIViewController {
     
     var twitterAccount: ACAccount?
     let followersListURL = "https://api.twitter.com/1.1/followers/list.json"
@@ -34,7 +35,6 @@ class TwitterListViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    // followerを取得
     private func getFollowers(account: ACAccount) {
         let URL = NSURL(string: followersListURL)
         
@@ -72,7 +72,7 @@ class TwitterListViewController: UIViewController {
     }
 }
 
-extension TwitterListViewController: UITableViewDelegate {
+extension FollowerListViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let messageViewController = MessageViewController()
@@ -81,7 +81,7 @@ extension TwitterListViewController: UITableViewDelegate {
     }
 }
 
-extension TwitterListViewController: UITableViewDataSource {
+extension FollowerListViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return followers.count
@@ -96,14 +96,23 @@ extension TwitterListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        do {
-            let data =  try NSData(contentsOfURL: url, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        /// 非同期で画像読み込み
+        let req = NSURLRequest(URL: url, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 10)
+        NSURLConnection.sendAsynchronousRequest(req, queue: NSOperationQueue.mainQueue()) { (res, data, error) in
+            if let error = error {
+                print("error! \(error.localizedDescription)")
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
             cell.icon.image = UIImage(data: data)
-            cell.nameLabel.text = "@\(followers[indexPath.row].name)"
-            return cell
-        } catch let error as NSError {
-            print(error.localizedDescription)
         }
-        return UITableViewCell()
+        
+        cell.nameLabel.text = "@\(self.followers[indexPath.row].name)"
+        
+        return cell
     }
 }

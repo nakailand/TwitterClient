@@ -20,10 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NSUserDefaults.standardUserDefaults().removeObjectForKey("authorization")
         
-        // Twitter認証されている場合はTwitterのフォローリスト画面を表示
+        /// Twitter認証されている場合はTwitterのフォローリスト画面を表示
         if let authorizationObj = NSUserDefaults.standardUserDefaults().objectForKey("authorization") as? NSData {
             let account = NSKeyedUnarchiver.unarchiveObjectWithData(authorizationObj)
-            guard let followerListViewController = UIStoryboard(name: "FollowerList", bundle: nil).instantiateInitialViewController() as? TwitterListViewController else {
+            guard let followerListViewController = UIStoryboard(name: "FollowerList", bundle: nil).instantiateInitialViewController() as? FollowerListViewController else {
                 return false
             }
             followerListViewController.twitterAccount = account as? ACAccount

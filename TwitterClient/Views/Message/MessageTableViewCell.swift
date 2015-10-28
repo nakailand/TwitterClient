@@ -9,10 +9,10 @@
 import UIKit
 
 // 吹き出しメッセージを生成する
-class MessageTableViewCell: UITableViewCell {
+final class MessageTableViewCell: UITableViewCell {
     let padding: CGFloat = 20
-    var messageLabel: UILabel!
-    var bubbleImageView: UIImageView!
+    private var messageLabel: UILabel!
+    private var bubbleImageView: UIImageView!
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         bubbleImageView = UIImageView()

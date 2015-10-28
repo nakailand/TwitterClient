@@ -10,7 +10,7 @@ import UIKit
 import Accounts
 import Social
 
-// 初回起動時にTwitter認証を行うクラス
+/// 初回起動時にTwitter認証を行うクラス
 class ViewController: UIViewController {
     var twitterAccount: ACAccount?
     override func viewDidLoad() {
@@ -23,13 +23,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // 認証処理
     @IBAction func authenticate(sender: AnyObject) {
         let accountStore = ACAccountStore()
         let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
         accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted: Bool, error: NSError?) in
             if let error = error {
-                // エラー処理
                 print("error! \(error.localizedDescription)")
                 return
             }
@@ -62,7 +60,6 @@ class ViewController: UIViewController {
         }
     }
     
-    // アカウント選択のActionSheetを表示する
     private func showAccountSelectSheet(accounts: [ACAccount]) {
         
         let alertController = UIAlertController(
@@ -71,7 +68,6 @@ class ViewController: UIViewController {
             preferredStyle: .ActionSheet
         )
         
-        // アカウント選択のActionSheetを表示するボタン
         for account in accounts { alertController.addAction(
                 UIAlertAction(
                     title: account.username,
@@ -80,7 +76,7 @@ class ViewController: UIViewController {
                         self.twitterAccount = account
                         let authorizationObj = NSKeyedArchiver.archivedDataWithRootObject(account)
                         NSUserDefaults.standardUserDefaults().setObject(authorizationObj, forKey: "authorization")
-                        let followrListViewController = UIStoryboard(name: "FollowerList", bundle: nil).instantiateInitialViewController() as! TwitterListViewController
+                        let followrListViewController = UIStoryboard(name: "FollowerList", bundle: nil).instantiateInitialViewController() as! FollowerListViewController
                         followrListViewController.twitterAccount = account
                         self.navigationController?.pushViewController(followrListViewController, animated: true)
                     }

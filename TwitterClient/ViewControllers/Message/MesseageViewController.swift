@@ -8,8 +8,8 @@
 
 import UIKit
 
-// DMを行うクラス
-class MessageViewController: UIViewController {
+/// メッセージを管理するクラス。動的にサイズが変わる部分が多いため、コードでViewを実装している。
+final class MessageViewController: UIViewController {
     let messageCellIdentifier = "MessageTableViewCell"
     let defaultCellHeight: CGFloat = 44
     let commentViewHeight: CGFloat = 44
@@ -148,7 +148,8 @@ extension MessageViewController: UITableViewDataSource {
         return max(getMessageHeight(indexPath.row), defaultCellHeight)
     }
     
-    // 各メッセージの高さを取得
+    /// 各メッセージの高さを取得
+    /// - parameter row: テーブルの行
     private func getMessageHeight(row: Int) -> CGFloat {
         let messageLabel = UILabel(frame: CGRect(x: 15, y: 10, width: 220, height: 9999))
         messageLabel.numberOfLines = 0
