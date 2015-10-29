@@ -15,12 +15,10 @@ class ViewController: UIViewController {
     var twitterAccount: ACAccount?
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     @IBAction func authenticate(sender: AnyObject) {
@@ -40,7 +38,10 @@ class ViewController: UIViewController {
                     preferredStyle: .Alert
                 )
                 alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
                 return
             }
             
@@ -52,7 +53,9 @@ class ViewController: UIViewController {
                     preferredStyle: .Alert
                 )
                 alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
                 return
             }
             

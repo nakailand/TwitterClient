@@ -22,15 +22,43 @@ class TwitterClientUITests: XCTestCase {
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
+
+    /// 自分のTwitterアカウントでのテストのためコメントアウトをしておく(本来ならテスト用のアカウントを作成するべき)
+    func testTransition() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        //let app = XCUIApplication()
+        //app.buttons["authorization"].tap()
+        //app.sheets["Twitter"].collectionViews.buttons["Shachikusky"].tap()
+        //app.tables.staticTexts["@takfmk"].tap()
+        //app.otherElements.containingType(.NavigationBar, identifier:"takfmk").childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.TextView).element.tap()
+        //app.tables["Empty list"].tap()
+        //app.navigationBars["takfmk"].buttons["Twitter DM"].tap()
+
+        //XCTAssertTrue(app.tables.cells.count == 20)
+
     }
-    
+
+    /// 自分のTwitterアカウントでのテストのためコメントアウトをしておく(本来ならテスト用のアカウントを作成するべき)
+    func testSendDM() {
+        
+        //let app = XCUIApplication()
+        //app.buttons["authorization"].tap()
+        //app.sheets["Twitter"].collectionViews.buttons["Shachikusky"].tap()
+        //app.tables.staticTexts["@yukiyukimama"].tap()
+        //
+        //let textView = app.otherElements.containingType(.NavigationBar, identifier:"yukiyukimama").childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.TextView).element
+        //textView.tap()
+        //textView.typeText("Hello")
+        //XCTAssertEqual(textView.value as? String, "Hello")
+        //app.buttons["Post"].tap()
+        //app.navigationBars["yukiyukimama"].buttons["Twitter DM"].tap()
+
+    }
 }

@@ -13,8 +13,8 @@ final class MessageViewController: UIViewController {
     let messageCellIdentifier = "MessageTableViewCell"
     let defaultCellHeight: CGFloat = 44
     let commentViewHeight: CGFloat = 44
-    var commentView: MessageView!
-    var tableView: UITableView!
+    private var commentView: MessageView!
+    private var tableView: UITableView!
     private var messages: [Message] = [] {
         didSet {
             tableView.reloadData()
@@ -33,7 +33,8 @@ final class MessageViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
+    // MARK: Private Methods
     private func setupTapGesture() {
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "closeKeyboard"))
     }
@@ -61,7 +62,25 @@ final class MessageViewController: UIViewController {
         commentView.postButton.addTarget(self, action: "postMessage", forControlEvents: .TouchUpInside)
         self.view.addSubview(commentView)
     }
-    
+
+    private func scrollToBottom() {
+        if messages.isEmpty {
+            return
+        }
+        
+        let indexPath = NSIndexPath(
+            forRow: self.tableView.numberOfRowsInSection(0) - 1,
+            inSection: self.tableView.numberOfSections - 1
+        )
+        
+        self.tableView.scrollToRowAtIndexPath(
+            indexPath,
+            atScrollPosition: UITableViewScrollPosition.Bottom,
+            animated: true
+        )
+    }
+
+    // MARK: Methods
     func keyboardWillShow(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue()
@@ -108,23 +127,6 @@ final class MessageViewController: UIViewController {
     func reply() {
         messages.append(Message(text: " \(commentView.textView.text) \(commentView.textView.text)", type: .Friend))
         scrollToBottom()
-    }
-    
-    private func scrollToBottom() {
-        if messages.isEmpty {
-            return
-        }
-        
-        let indexPath = NSIndexPath(
-            forRow: self.tableView.numberOfRowsInSection(0) - 1,
-            inSection: self.tableView.numberOfSections - 1
-        )
-        
-        self.tableView.scrollToRowAtIndexPath(
-            indexPath,
-            atScrollPosition: UITableViewScrollPosition.Bottom,
-            animated: true
-        )
     }
 }
 

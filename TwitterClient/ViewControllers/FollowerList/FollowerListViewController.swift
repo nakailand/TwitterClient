@@ -25,7 +25,7 @@ final class FollowerListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let account = twitterAccount {
-            getFollowers(account)
+            requestTwitter(account)
         }
         
         self.navigationItem.setHidesBackButton(true, animated: false)
@@ -34,8 +34,10 @@ final class FollowerListViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    private func getFollowers(account: ACAccount) {
+
+    /// フォロワーリストを取得するため、TwitterAPIを叩く
+    /// - parameter ACAccount
+    private func requestTwitter(account: ACAccount) {
         let URL = NSURL(string: followersListURL)
         
         let request = SLRequest(
