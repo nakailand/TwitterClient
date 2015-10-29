@@ -8,7 +8,7 @@
 
 import UIKit
 
-// 吹き出しメッセージを生成する
+/// 吹き出しメッセージを生成する
 final class MessageTableViewCell: UITableViewCell {
     let padding: CGFloat = 20
     private var messageLabel: UILabel!
@@ -28,7 +28,8 @@ final class MessageTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
 
-    // 受け取ったメッセージの長さに応じて吹き出しを生成
+    /// 受け取ったメッセージの長さに応じて吹き出しを生成
+    /// - parameter message: メッセージ
     func setupData(message: Message) {
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .ByWordWrapping

@@ -8,7 +8,7 @@
 
 import Foundation
 
-// DMの内容を格納
+/// DMの内容を格納
 struct Message {
     enum User {
         case Me, Friend

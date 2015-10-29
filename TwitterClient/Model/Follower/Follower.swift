@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Followerの情報を格納
+/// Followerの情報を格納
 struct Follower {
     let name: String
     let iconUrl: String

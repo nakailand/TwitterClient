@@ -8,7 +8,7 @@
 
 import UIKit
 
-// Follower情報を表示するセル
+/// Follower情報を表示するセル
 final class FollowerListTableViewCell: UITableViewCell {
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
