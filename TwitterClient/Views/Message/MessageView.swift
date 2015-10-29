@@ -13,27 +13,67 @@ final class MessageView: UIView {
     init() {
         super.init(frame: CGRectZero)
     }
+    let postButtonWidth: CGFloat = 96
+    let margin: CGFloat = 4
+    let bgColor = UIColor(red: 247.0/255, green: 247.0/255, blue: 247.0/255, alpha: 1.0) /// navigationBarの色と同じ
+    let buttonTitleColorForNormal = UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1)
+    let buttonTitleColorForDisabled = UIColor.grayColor()
+    let buttonTitleForNormal = "送信"
+    let placeholderLabelText = "メッセージ"
     
     var postButton: UIButton!
     private(set) var textView: UITextView!
+    private var placeholderLabel: UILabel!
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(red: 247.0/255, green: 247.0/255, blue: 247.0/255, alpha: 1.0)
+        self.backgroundColor = bgColor
         
-        postButton = UIButton(frame: CGRect(x: self.bounds.width - 100, y: 4, width: 96, height: 36))
-        postButton.setTitle("Post", forState: .Normal)
-        postButton.setTitleColor(UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1), forState: .Normal)
-        postButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
-        postButton.enabled = false
-        
-        textView = UITextView(frame: CGRect(x: 4, y: 4, width: self.bounds.width - 108, height: 36))
-        textView.delegate = self
-        self.addSubview(textView)
-        self.addSubview(postButton)
+        setupPostButton()
+        setupTextView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    private func setupPostButton() {
+        postButton = UIButton(frame: CGRect(
+            x: self.bounds.width - postButtonWidth - margin,
+            y: margin,
+            width: postButtonWidth,
+            height: self.bounds.size.height - margin * 2)
+        )
+        postButton.setTitle(buttonTitleForNormal, forState: .Normal)
+        postButton.setTitleColor(buttonTitleColorForNormal, forState: .Normal)
+        postButton.setTitleColor(buttonTitleColorForDisabled, forState: .Disabled)
+        postButton.enabled = false
+        self.addSubview(postButton)
+    }
+    
+    private func setupTextView() {
+        textView = UITextView(frame: CGRect(
+            x: margin,
+            y: margin,
+            width: self.bounds.width - postButtonWidth - margin * 3,
+            height: self.bounds.size.height - margin * 2)
+        )
+        textView.delegate = self
+        setupPlaceholderLabel()
+        self.addSubview(textView)
+        textView.addSubview(placeholderLabel)
+    }
+    
+    private func setupPlaceholderLabel() {
+        placeholderLabel = UILabel()
+        let caretRect = textView.caretRectForPosition(textView.beginningOfDocument)
+        placeholderLabel.frame.origin = caretRect.origin
+        placeholderLabel.frame.size.height = caretRect.size.height
+        placeholderLabel.baselineAdjustment = .AlignCenters
+        placeholderLabel.textColor = UIColor.lightGrayColor()
+        placeholderLabel.font = UIFont.systemFontOfSize(13)
+        placeholderLabel.text = placeholderLabelText
+        placeholderLabel.sizeToFit()
+        print(placeholderLabel.frame)
     }
 }
 
@@ -44,5 +84,6 @@ extension MessageView: UITextViewDelegate {
     
     func textViewDidChange(textView: UITextView) {
         postButton.enabled = !textView.text.isEmpty
+        placeholderLabel.hidden = !textView.text.isEmpty
     }
 }

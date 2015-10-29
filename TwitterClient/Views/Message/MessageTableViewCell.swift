@@ -9,8 +9,18 @@
 import UIKit
 
 /// 吹き出しメッセージを生成する
+/// MessageViewControllerもコードベースなのでCellもコードで記述
 final class MessageTableViewCell: UITableViewCell {
-    let padding: CGFloat = 20
+    let messageLabelWidth: CGFloat = 220
+    let rightBubbleMargin: CGFloat = 5
+    
+    /// TODO: 以下の数値は決め打ちになっているので、計算で求めるようにしたい。
+    let verticalPadding: CGFloat = 20
+    let horizontalMargin: CGFloat = 7
+    let leftBubbleImageOriginX: CGFloat = 18
+    let rightBubbleEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 20)
+    let leftBubbleEdgeInsets = UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 15)
+    
     private var messageLabel: UILabel!
     private var bubbleImageView: UIImageView!
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -33,20 +43,32 @@ final class MessageTableViewCell: UITableViewCell {
     func setupData(message: Message) {
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .ByWordWrapping
-        messageLabel.frame = CGRect(x: 10, y: 8, width: 220, height: 9999)
+        messageLabel.frame = CGRect(x: 10, y: 8, width: messageLabelWidth, height: 0)
         messageLabel.text = message.text
         messageLabel.font = UIFont.systemFontOfSize(13)
-        messageLabel.backgroundColor = UIColor.clearColor()
         messageLabel.sizeToFit()
         bubbleImageView.addSubview(messageLabel)
+    
         switch message.type {
         case .Me:
-            bubbleImageView.image = UIImage(named: "right_bubble")?.resizableImageWithCapInsets(UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 20), resizingMode: UIImageResizingMode.Stretch)
-            bubbleImageView.frame = CGRect(x: UIScreen.mainScreen().bounds.size.width - messageLabel.frame.size.width - 30, y: 5, width: messageLabel.frame.size.width + 25, height: messageLabel.frame.size.height + padding)
+            bubbleImageView.image = UIImage(named: "right_bubble")?
+                .resizableImageWithCapInsets(rightBubbleEdgeInsets, resizingMode: UIImageResizingMode.Stretch)
+            bubbleImageView.frame = CGRect(
+                x: UIScreen.mainScreen().bounds.size.width - messageLabel.frame.size.width - messageLabel.frame.origin.x * 2 - rightBubbleMargin,
+                y: 0,
+                width: messageLabel.frame.size.width + messageLabel.frame.origin.x * 2 + horizontalMargin,
+                height: messageLabel.frame.size.height + verticalPadding
+            )
         case .Friend:
-            messageLabel.frame.origin.x = 15
-            bubbleImageView.image = UIImage(named: "left_bubble")?.resizableImageWithCapInsets(UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 15), resizingMode: UIImageResizingMode.Stretch)
-            bubbleImageView.frame = CGRect(x: 10, y: 7, width: messageLabel.frame.size.width + 30, height: messageLabel.frame.size.height + padding)
+            messageLabel.frame.origin.x = leftBubbleImageOriginX
+            bubbleImageView.image = UIImage(named: "left_bubble")?
+                .resizableImageWithCapInsets(leftBubbleEdgeInsets, resizingMode: UIImageResizingMode.Stretch)
+            bubbleImageView.frame = CGRect(
+                x: 0,
+                y: 0,
+                width: messageLabel.frame.size.width + messageLabel.frame.origin.x * 2 - horizontalMargin,
+                height: messageLabel.frame.size.height + verticalPadding
+            )
         }
     }
 }

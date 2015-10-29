@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// メッセージを管理するクラス。動的にサイズが変わる部分が多いため、コードでViewを実装している。
+/// メッセージを管理するクラス。動的にサイズが変わる部分が多いため、コードで実装している。
 final class MessageViewController: UIViewController {
     let messageCellIdentifier = "MessageTableViewCell"
     let defaultCellHeight: CGFloat = 44
@@ -121,7 +121,7 @@ final class MessageViewController: UIViewController {
         //commentView.textView.text.removeAll()
         scrollToBottom()
         
-        NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: Selector("reply"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("reply"), userInfo: nil, repeats: false)
     }
 
     func reply() {
@@ -153,12 +153,12 @@ extension MessageViewController: UITableViewDataSource {
     /// 各メッセージの高さを取得
     /// - parameter row: テーブルの行
     private func getMessageHeight(row: Int) -> CGFloat {
-        let messageLabel = UILabel(frame: CGRect(x: 15, y: 10, width: 220, height: 9999))
+        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 220, height: 0))
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .ByWordWrapping
         messageLabel.text = messages[row].text
         messageLabel.font = UIFont.systemFontOfSize(13)
         messageLabel.sizeToFit()
-        return messageLabel.frame.size.height + 25
+        return messageLabel.frame.size.height + 20
     }
 }
