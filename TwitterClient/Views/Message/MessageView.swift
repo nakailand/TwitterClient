@@ -73,7 +73,6 @@ final class MessageView: UIView {
         placeholderLabel.font = UIFont.systemFontOfSize(13)
         placeholderLabel.text = placeholderLabelText
         placeholderLabel.sizeToFit()
-        print(placeholderLabel.frame)
     }
 }
 
