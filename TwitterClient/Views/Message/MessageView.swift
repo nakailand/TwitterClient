@@ -18,12 +18,12 @@ final class MessageView: UIView {
     let bgColor = UIColor(red: 247.0/255, green: 247.0/255, blue: 247.0/255, alpha: 1.0) /// navigationBarの色と同じ
     let buttonTitleColorForNormal = UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1)
     let buttonTitleColorForDisabled = UIColor.grayColor()
-    let buttonTitleForNormal = "送信"
+    let buttonTitleForNormal = "Post"
     let placeholderLabelText = "メッセージ"
     
     var postButton: UIButton!
+    var placeholderLabel: UILabel!
     private(set) var textView: UITextView!
-    private var placeholderLabel: UILabel!
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = bgColor

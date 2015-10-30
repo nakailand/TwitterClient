@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("authorization")
+        //NSUserDefaults.standardUserDefaults().removeObjectForKey("authorization")
         
         /// Twitter認証されている場合はTwitterのフォローリスト画面を表示
         if let authorizationObj = NSUserDefaults.standardUserDefaults().objectForKey("authorization") as? NSData {

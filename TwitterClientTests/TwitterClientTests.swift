@@ -21,16 +21,15 @@ class TwitterClientTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testFollowerModel() {
+        let follower = Follower(name: "test", iconUrl: "testUrl")
+        XCTAssertEqual(follower.name, "test")
+        XCTAssertEqual(follower.iconUrl, "testUrl")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
+    func testMessageModel() {
+        let message = Message(text: "test", type: .Me)
+        XCTAssertEqual(message.text, "test")
+        XCTAssertEqual(message.type, Message.User.Me)
     }
-    
 }

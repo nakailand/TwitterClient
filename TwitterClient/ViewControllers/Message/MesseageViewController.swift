@@ -21,6 +21,7 @@ final class MessageViewController: UIViewController {
             tableView.layoutIfNeeded()
         }
     }
+    private var previousMessage: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +80,13 @@ final class MessageViewController: UIViewController {
             animated: true
         )
     }
+    
+    /// メッセージPost後の初期化処理
+    private func resetCommentViewState() {
+        commentView.textView.text.removeAll()
+        commentView.postButton.enabled = false
+        commentView.placeholderLabel.hidden = false
+    }
 
     // MARK: Methods
     func keyboardWillShow(notification: NSNotification) {
@@ -117,15 +125,15 @@ final class MessageViewController: UIViewController {
     
     func postMessage() {
         messages.append(Message(text: commentView.textView.text, type: .Me))
-        //commentView.postButton.enabled = false
-        //commentView.textView.text.removeAll()
+        previousMessage = commentView.textView.text
+        resetCommentViewState()
         scrollToBottom()
         
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("reply"), userInfo: nil, repeats: false)
     }
 
     func reply() {
-        messages.append(Message(text: " \(commentView.textView.text) \(commentView.textView.text)", type: .Friend))
+        messages.append(Message(text: " \(previousMessage) \(previousMessage)", type: .Friend))
         scrollToBottom()
     }
 }
